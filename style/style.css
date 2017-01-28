@@ -1,0 +1,151 @@
+/* Space out content a bit */
+
+body{
+    background: url(http://finedinelove.com/wp-content/uploads/2015/06/franseco-2.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+html, body{
+        height: 100%;
+}
+
+.container{
+    height: 200px;
+}
+
+body {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+div#fillerJumbotron.jumbotron{
+    background-color: none;
+}
+
+#welcomeText{
+    text-align: center;
+    color: #ffffff;
+    font-family: Futura;
+}
+
+#startButtonRow{
+    align-content: center;
+    font-family: Futura;
+    color: #ffffff;
+}
+
+#buttonDiv{
+    padding-top: 150px;
+    padding-bottom: 300px;
+}
+
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btn-primary{
+    background-color: #5E101C;
+    color: #ffffff;
+}
+
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+    background-color: #5E101C;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: none;
+    background-color: none;
+    border-color: #ffffff;
+}
+
+.btn-primary:active, .btn-primary.active {
+    background: none;
+    box-shadow: #ffffff;
+    border-color: #ffffff;
+}
+
+.header {
+  padding-bottom: 1rem;
+  border-bottom: .05rem solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 3rem;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 1.5rem;
+  color: #777;
+  border-top: .05rem solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 48em) {
+  .container {
+    max-width: 46rem;
+  }
+}
+.container-narrow > hr {
+  margin: 2rem 0;
+}
+
+
+/* Supporting marketing content */
+.marketing {
+  margin: 3rem 0;
+}
+.marketing p + h4 {
+  margin-top: 1.5rem;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 48em) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 2rem;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+.glyphicon {
+    font-size: 50px;
+}
+
+.glyphicon.glyphicon-ok{
+  color: #3A7734;
+}
+
+.glyphicon.glyphicon-remove{
+  color: #77101c;
+}
+
