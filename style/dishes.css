@@ -1,7 +1,7 @@
 /* Space out content a bit */
 
 body{
-    background: #C4A791;
+    background: #ffffff;
 }
 
 body {
@@ -19,7 +19,7 @@ body {
 
 #headerText{
     text-align: center;
-    color: #ffffff;
+    color: #5E101C;
     font-family: Futura;
 }
 
@@ -89,15 +89,12 @@ body {
   }
 }
 
-.glyphicon {
-    font-size: 50px;
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
 }
-
-.glyphicon.glyphicon-ok{
-  color: #3A7734;
-}
-
-.glyphicon.glyphicon-remove{
-  color: #77101c;
-}
-
