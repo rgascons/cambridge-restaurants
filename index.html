@@ -68,4 +68,43 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
   </body>
+  <script src="https://www.gstatic.com/firebasejs/3.6.7/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+  <script>
+      // Initialize Firebase
+      var config = {
+          apiKey: "AIzaSyC5WBUYVArKe0AR9-7h33_0SVlPPZ_3iCg",
+          authDomain: "cambridge-restaurants-47796.firebaseapp.com",
+          databaseURL: "https://cambridge-restaurants-47796.firebaseio.com",
+          storageBucket: "cambridge-restaurants-47796.appspot.com",
+          messagingSenderId: "748947568984"
+      };
+      firebase.initializeApp(config);
+
+      function initt() {
+          firebase.database().ref('users/' + 'guillem').set({
+              username: "guillem",
+              profile_picture : "https://cdn4.iconfinder.com/data/icons/snowflakes-2/78/snow_flake_winter-08-512.png"
+          });
+          firebase.database().ref('users/' + 'ricard').set({
+              username: "ricard",
+              profile_picture : "https://lh3.ggpht.com/nJbsQJpm9-c9ayQv7AgYQwiyHPkwmOrOcNxcr7r8EIxvXzgwfSFh4yBM_mEK3GYSbw=w300"
+          });
+          firebase.database().ref('users/' + 'dori').set({
+              username: "dori",
+              profile_picture : "http://icons.iconarchive.com/icons/dapino/callcenter-girls/256/callcenter-girls-blonde-icon.png"
+          });
+          firebase.database().ref('users/' + 'eudald').set({
+              username: "eudald",
+              profile_picture : "https://cdn2.iconfinder.com/data/icons/audi-line-icons/512/Audi_A7-512.png"
+          });
+          console.log("kek")
+      }
+
+      var database = firebase.database();
+
+  </script>
 </html>
