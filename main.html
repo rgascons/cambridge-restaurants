@@ -46,30 +46,7 @@
       </div>
     <br>
         <div class="container" id="maincontainer">
-           <!-- <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-5"> IMAGE </div>
-                <div class="col-xs-1"></div>
-                <div class="col-xs-5">
-                <button type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-minus"></i></button>
-                    <div class="col-xs-1"><p id="numberofplates">0</p></div>
-                <button type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-plus"></i></button></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-10">NAME</div>
-                <div class="col-xs-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-10">DESCRIPTION</div>
-                <div class="col-xs-1"></div>
-            </div>
--->
-
       </div>
-
-
 
     </div> <!-- /container -->
 
@@ -85,7 +62,7 @@
       firebase.initializeApp(config);
       var database = firebase.database();
       for(var i = 1; i <= 4; ++i) {
-          database.ref('/dish/starters/' + i).once('value').then(function(snapshot) {
+          database.ref('/dish/main/' + i).once('value').then(function(snapshot) {
               var name = snapshot.val().name;
               var pic = snapshot.val().picture;
               var price = snapshot.val().price;

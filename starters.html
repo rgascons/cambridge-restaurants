@@ -22,6 +22,12 @@
 
     <script src="./app.js"></script>
 
+      <script src="https://www.gstatic.com/firebasejs/3.6.7/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+
       <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="./style/dishes.css" >
   </head>
@@ -31,7 +37,7 @@
     <div class="container">
       <div class="header clearfix">
         <div class="row">
-            <div class="col-xs"
+            <div class="col-xs"></div>
         </div>
         <a href="index.html"><div class="col-xs-3" id="prevButton"><h5>Back</h5></div></a>
         <div class="col-xs-6"><h3 class="text-muted" id="headerText">Starters</h3></div>
@@ -39,27 +45,53 @@
         <br>
       </div>
     <br>
-        <div class="row">
-            <div class="col-xs-1"></div>
-            <div class="col-xs-7">
-            <div class="row"> <p>NAME</p></div>
-                <div class="row"> <p>Description</p></div>
-                <div class="row"> <div class="col-xs-1"> <p>$$</p></div> <div class="col-xs-6">
-                    <button type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-minus"></i></button>
-                    <div class="col-xs-1"><p>0</p></div>
-                <button type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-plus"></i></button></div>
-                </div> </div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-2"> <p>image</p></div>
-            <div class="col-xs-1"></div>
-
-        </div>
-
+        <div class="container" id="maincontainer">
       </div>
-
-
 
     </div> <!-- /container -->
 
   </body>
+  <script>
+      var config = {
+          apiKey: "AIzaSyC5WBUYVArKe0AR9-7h33_0SVlPPZ_3iCg",
+          authDomain: "cambridge-restaurants-47796.firebaseapp.com",
+          databaseURL: "https://cambridge-restaurants-47796.firebaseio.com",
+          storageBucket: "cambridge-restaurants-47796.appspot.com",
+          messagingSenderId: "748947568984"
+      };
+      firebase.initializeApp(config);
+      var database = firebase.database();
+      for(var i = 1; i <= 4; ++i) {
+          database.ref('/dish/starters/' + i).once('value').then(function(snapshot) {
+              var name = snapshot.val().name;
+              var pic = snapshot.val().picture;
+              var price = snapshot.val().price;
+              var row="";
+              row += "              <div class=\"row\"><img src='" + pic + "' ></div>";
+              row += "            <div class=\"row\">";
+              row += "                <div class=\"row\">";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-3\">"+ name +"<\/div>";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-6\">";
+              row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-minus\"><\/i><\/button>";
+              row += "                    <button type=\"button\" class=\"btn btn-warning btn-circle\"><i >"+ price +" <\/i><\/button>";
+              row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-plus\"><\/i><\/button><\/div>";
+              row += "                <\/div>";
+              row += "                <div class=\"row\">";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-10\"><\/div>";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                <\/div>";
+              row += "                <div class=\"row\">";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-10\" style='font-size: 16px'>"+ '$ '+ price +  "<\/div>";
+              row += "                    <div class=\"col-xs-1\" style='padding-bottom: 10%'><\/div>";
+              row += "                <\/div>";
+              row += "            <\/div>";
+
+              $('#maincontainer').append(row);
+          });
+      }
+  </script>
 </html>

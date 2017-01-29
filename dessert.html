@@ -40,36 +40,13 @@
             <div class="col-xs"></div>
         </div>
         <a href="main.html"><div class="col-xs-3" id="prevButton"><h5>Back</h5></div></a>
-        <div class="col-xs-6"><h3 class="text-muted" id="headerText">Desserts</h3></div>
+        <div class="col-xs-6"><h3 class="text-muted" id="headerText">Dessert</h3></div>
         <a href="summary.html"><div class="col-xs-3" id="nextButton"><h5>Next</h5></div></a>
         <br>
       </div>
     <br>
         <div class="container" id="maincontainer">
-           <!-- <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-5"> IMAGE </div>
-                <div class="col-xs-1"></div>
-                <div class="col-xs-5">
-                <button type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-minus"></i></button>
-                    <div class="col-xs-1"><p id="numberofplates">0</p></div>
-                <button type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-plus"></i></button></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-10">NAME</div>
-                <div class="col-xs-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-10">DESCRIPTION</div>
-                <div class="col-xs-1"></div>
-            </div>
--->
-
       </div>
-
-
 
     </div> <!-- /container -->
 
@@ -85,30 +62,31 @@
       firebase.initializeApp(config);
       var database = firebase.database();
       for(var i = 1; i <= 4; ++i) {
-          database.ref('/dish/starters/' + i).once('value').then(function(snapshot) {
+          database.ref('/dish/dessert/' + i).once('value').then(function(snapshot) {
               var name = snapshot.val().name;
               var pic = snapshot.val().picture;
               var price = snapshot.val().price;
               var row="";
+              row += "              <div class=\"row\"><img src='" + pic + "' ></div>";
               row += "            <div class=\"row\">";
               row += "                <div class=\"row\">";
               row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                    <div class=\"col-xs-5\"><img src='" + pic + "' width='150' height='80'><\/div>";
+              row += "                    <div class=\"col-xs-3\">"+ name +"<\/div>";
               row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                    <div class=\"col-xs-5\">";
+              row += "                    <div class=\"col-xs-6\">";
               row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-minus\"><\/i><\/button>";
-              row += "                        <div class=\"col-xs-1\"><p>"+ price +"<\/p><\/div>";
+              row += "                    <button type=\"button\" class=\"btn btn-warning btn-circle\"><i >"+ price +" <\/i><\/button>";
               row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-plus\"><\/i><\/button><\/div>";
               row += "                <\/div>";
               row += "                <div class=\"row\">";
               row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                    <div class=\"col-xs-10\">"+ name +"<\/div>";
+              row += "                    <div class=\"col-xs-10\"><\/div>";
               row += "                    <div class=\"col-xs-1\"><\/div>";
               row += "                <\/div>";
               row += "                <div class=\"row\">";
               row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                    <div class=\"col-xs-10\">"+ "DESCRIPTION" +"<\/div>";
-              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-10\" style='font-size: 16px'>"+ '$ '+ price +  "<\/div>";
+              row += "                    <div class=\"col-xs-1\" style='padding-bottom: 10%'><\/div>";
               row += "                <\/div>";
               row += "            <\/div>";
 
