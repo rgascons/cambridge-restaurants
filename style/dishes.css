@@ -130,6 +130,10 @@ button{
   border-radius: 15px;
 }
 
+#maincontainer{
+    font-family: Futura;
+}
+
 #numberofplates{
     font-family: Futura;
     font-size: 20px;
