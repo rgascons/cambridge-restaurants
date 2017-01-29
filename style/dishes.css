@@ -22,6 +22,18 @@ body {
   padding-left: 1rem;
 }
 
+#prevButton{
+    text-align: left;
+    font-family: Futura;
+    color: #5E101C;
+}
+
+#nextButton{
+    text-align: right;
+    font-family: Futura;
+    color: #5E101C;
+}
+
 div{
     vertical-align: middle;
 }
@@ -30,6 +42,15 @@ div{
     text-align: center;
     color: #5E101C;
     font-family: Futura;
+}
+
+#maincontainer{
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+button{
+    padding: 20px;
 }
 
 /* Custom page header */
@@ -102,8 +123,15 @@ div{
   width: 30px;
   height: 30px;
   text-align: center;
-  padding: 6px 0;
+  padding: 6px;
+    margin-left: 20px;
   font-size: 12px;
   line-height: 1.428571429;
   border-radius: 15px;
+}
+
+#numberofplates{
+    font-family: Futura;
+    font-size: 20px;
+    margin-right: 15px;
 }
