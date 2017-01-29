@@ -22,6 +22,12 @@
 
     <script src="./app.js"></script>
 
+      <script src="https://www.gstatic.com/firebasejs/3.6.7/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+
       <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="./style/dishes.css" >
   </head>
@@ -67,4 +73,46 @@
     </div> <!-- /container -->
 
   </body>
+  <script>
+      var config = {
+          apiKey: "AIzaSyC5WBUYVArKe0AR9-7h33_0SVlPPZ_3iCg",
+          authDomain: "cambridge-restaurants-47796.firebaseapp.com",
+          databaseURL: "https://cambridge-restaurants-47796.firebaseio.com",
+          storageBucket: "cambridge-restaurants-47796.appspot.com",
+          messagingSenderId: "748947568984"
+      };
+      firebase.initializeApp(config);
+      var database = firebase.database();
+      for(var i = 1; i <= 4; ++i) {
+          database.ref('/dish/starters/' + i).once('value').then(function(snapshot) {
+              var name = snapshot.val().name;
+              var pic = snapshot.val().picture;
+              var price = snapshot.val().price;
+              var row="";
+              row += "            <div class=\"row\">";
+              row += "                <div class=\"row\">";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-6\"><img src='" + pic + "' width='80' height='80'><\/div>";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-4\">";
+              row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-minus\"><\/i><\/button>";
+              row += "                        <div class=\"col-xs-1\"><p>"+ price +"<\/p><\/div>";
+              row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-plus\"><\/i><\/button><\/div>";
+              row += "                <\/div>";
+              row += "                <div class=\"row\">";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-10\">"+ name +"<\/div>";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                <\/div>";
+              row += "                <div class=\"row\">";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                    <div class=\"col-xs-10\">"+ "DESCRIPTION" +"<\/div>";
+              row += "                    <div class=\"col-xs-1\"><\/div>";
+              row += "                <\/div>";
+              row += "            <\/div>";
+
+              $('#courses').append(row);
+          });
+      }
+  </script>
 </html>
