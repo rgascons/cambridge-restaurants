@@ -19,8 +19,15 @@
 
     <script src="./app.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/3.6.7/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="./style/dishes.css" >
+
 </head>
 <body>
     <div class="container">
@@ -29,25 +36,12 @@
             <div class="col-xs"></div>
         </div>
         <a href="dessert.html"><div class="col-xs-3" id="prevButton"><h5>Back</h5></div></a>
-        <div class="col-xs-6"><h3 class="text-muted" id="headerText">Summary</h3></div>
-        <div class="col-xs-3" id="nextButton"><h5></h5></div>
+        <div class="col-xs-7"><h3 class="text-muted" id="headerText">Summary</h3></div>
+        <div class="col-xs-2" id="nextButton"><h5></h5></div>
         <br>
       </div>
 
-<!--        <div class="row">
-            <div class="col-xs-1"></div>
-            <div class="col-xs-5">
-             <p>image</p></div>
-                <div class="col-xs-1"></div>
-            <div class="col-xs-4"> <p>2 SALAD</p></div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-8"></div>
-            <div class="col-xs-3"> <p>price</p></div>
-            <div class="col-xs-1"></div>
-
-        </div>-->
+        <div class="container" id="maincontainer">
 
         </div>
 
@@ -62,4 +56,68 @@
 
     </div> <!-- /container -->
 </body>
+<script>
+    (function  calcAllDishes() {
+
+        var config = {
+            apiKey: "AIzaSyC5WBUYVArKe0AR9-7h33_0SVlPPZ_3iCg",
+            authDomain: "cambridge-restaurants-47796.firebaseapp.com",
+            databaseURL: "https://cambridge-restaurants-47796.firebaseio.com",
+            storageBucket: "cambridge-restaurants-47796.appspot.com",
+            messagingSenderId: "748947568984"
+        };
+        var total = 0;
+        firebase.initializeApp(config);
+        var database = firebase.database;
+        var ref = database().ref("dish/");
+        ref.once("value")
+            .then(function (dish) {
+                //forEach category -> get all the dishes ordered
+                dish.forEach(function(category) {
+                    console.log(category.val());
+                    category.val().forEach(function(thing) {
+                        if (thing.users != null) {
+                            total += parseInt(thing.price)*thing.users.length;
+                            console.log(thing.price);
+                            console.log(thing.users);
+                            console.log(thing.name);
+                            console.log(thing.picture);
+                            var name = thing.name;
+                            var pic = thing.picture;
+                            var n_orders = thing.users.length;
+                            var total_price = parseInt(thing.price)*thing.users.length;
+                            var row = "";
+                            row += "              <div class=\"row\"><img src='" + pic + "' ></div>";
+                            row += "            <div class=\"row\">";
+                            row += "                <div class=\"row\">";
+                            row += "                    <div class=\"col-xs-1\"><\/div>";
+                            row += "                    <div class=\"col-xs-3\">" + name + "<\/div>";
+                            row += "                    <div class=\"col-xs-1\"><\/div>";
+                            row += "                    <div class=\"col-xs-6\">";
+                            row += "                    <button type=\"button\" class=\"btn btn-default btn-circle hidden\"><i class=\"glyphicon glyphicon-minus\" id='minus-icon'><\/i><\/button>";
+                            row += "                    <button type=\"button\" class=\"btn btn-warning btn-circle\" id='n-orders'><i >" + n_orders + " <\/i><\/button>";
+                            row += "                    <button type=\"button\" class=\"btn btn-default btn-circle hidden\"><i class=\"glyphicon glyphicon-plus\" id='plus-icon'><\/i><\/button><\/div>";
+                            row += "                <\/div>";
+                            row += "                <div class=\"row\">";
+                            row += "                    <div class=\"col-xs-1\"><\/div>";
+                            row += "                    <div class=\"col-xs-10\"><\/div>";
+                            row += "                    <div class=\"col-xs-1\"><\/div>";
+                            row += "                <\/div>";
+                            row += "                <div class=\"row\">";
+                            row += "                    <div class=\"col-xs-1\"><\/div>";
+                            row += "                    <div class=\"col-xs-10\" style='font-size: 16px'>" + '$ ' + total_price + "<\/div>";
+                            row += "                    <div class=\"col-xs-1\" style='padding-bottom: 10%'><\/div>";
+                            row += "                <\/div>";
+                            row += "            <\/div>";
+
+                            $('#maincontainer').append(row);
+
+                        }
+
+                    });
+                });
+                $('#headerText').append(' ($ ' + total + ')');
+            });
+    })();
+</script>
 </html>
