@@ -52,6 +52,8 @@
 
   </body>
   <script>
+      var NAME = "Ricard";
+
       var config = {
           apiKey: "AIzaSyC5WBUYVArKe0AR9-7h33_0SVlPPZ_3iCg",
           authDomain: "cambridge-restaurants-47796.firebaseapp.com",
@@ -61,37 +63,92 @@
       };
       firebase.initializeApp(config);
       var database = firebase.database();
-      for(var i = 1; i <= 4; ++i) {
-          database.ref('/dish/dessert/' + i).once('value').then(function(snapshot) {
-              var name = snapshot.val().name;
-              var pic = snapshot.val().picture;
-              var price = snapshot.val().price;
-              var row="";
-              row += "              <div class=\"row\"><img src='" + pic + "' ></div>";
-              row += "            <div class=\"row\">";
-              row += "                <div class=\"row\">";
-              row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                    <div class=\"col-xs-3\">"+ name +"<\/div>";
-              row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                    <div class=\"col-xs-6\">";
-              row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-minus\"><\/i><\/button>";
-              row += "                    <button type=\"button\" class=\"btn btn-warning btn-circle\"><i >"+ price +" <\/i><\/button>";
-              row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-plus\"><\/i><\/button><\/div>";
-              row += "                <\/div>";
-              row += "                <div class=\"row\">";
-              row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                    <div class=\"col-xs-10\"><\/div>";
-              row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                <\/div>";
-              row += "                <div class=\"row\">";
-              row += "                    <div class=\"col-xs-1\"><\/div>";
-              row += "                    <div class=\"col-xs-10\" style='font-size: 16px'>"+ '$ '+ price +  "<\/div>";
-              row += "                    <div class=\"col-xs-1\" style='padding-bottom: 10%'><\/div>";
-              row += "                <\/div>";
-              row += "            <\/div>";
+      var n_courses;
+      database.ref("/dish/dessert/").once('value').then(function(snapshot) {
+          n_courses = snapshot.numChildren();
+      }).then(function () {
+          for(var i = 1; i <= n_courses; ++i) {
+              database.ref('/dish/dessert/' + i).once('value').then(function (snapshot) {
+                  var key = snapshot.key;
+                  var name = snapshot.val().name;
+                  var pic = snapshot.val().picture;
+                  var price = snapshot.val().price;
+                  var users = snapshot.val().users;
+                  var n_orders = (users? snapshot.val().users.length : 0);
+                  var row = "";
+                  row += "              <div class=\"row\"><img src='" + pic + "' ></div>";
+                  row += "            <div class=\"row\">";
+                  row += "                <div class=\"row\">";
+                  row += "                    <div class=\"col-xs-1\"><\/div>";
+                  row += "                    <div class=\"hidden\" id='element_id'>"+ key +"<\/div>";
+                  row += "                    <div class=\"col-xs-3\">" + name + "<\/div>";
+                  row += "                    <div class=\"col-xs-1\"><\/div>";
+                  row += "                    <div class=\"col-xs-6\">";
+                  row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-minus\" id='minus-icon"+key+"'><\/i><\/button>";
+                  row += "                    <button type=\"button\" class=\"btn btn-warning btn-circle\" id='n-orders"+key+"'><i >" + n_orders + " <\/i><\/button>";
+                  row += "                    <button type=\"button\" class=\"btn btn-default btn-circle\"><i class=\"glyphicon glyphicon-plus\" id='plus-icon"+key+"'><\/i><\/button><\/div>";
+                  row += "                <\/div>";
+                  row += "                <div class=\"row\">";
+                  row += "                    <div class=\"col-xs-1\"><\/div>";
+                  row += "                    <div class=\"col-xs-10\"><\/div>";
+                  row += "                    <div class=\"col-xs-1\"><\/div>";
+                  row += "                <\/div>";
+                  row += "                <div class=\"row\">";
+                  row += "                    <div class=\"col-xs-1\"><\/div>";
+                  row += "                    <div class=\"col-xs-10\" style='font-size: 16px'>" + '$ ' + price + "<\/div>";
+                  row += "                    <div class=\"col-xs-1\" style='padding-bottom: 10%'><\/div>";
+                  row += "                <\/div>";
+                  row += "            <\/div>";
 
-              $('#maincontainer').append(row);
-          });
-      }
+                  $('#maincontainer').append(row);
+
+                  $('#plus-icon' + key).click(function () {
+                      var key = $(this).parent().parent().parent().find('#element_id').text();
+                      var n_orders = $(this).parent().parent().parent().find('#n-orders').text();
+                      database.ref('/dish/dessert/' + key).once('value').then(function (snapshot) {
+                          var users = snapshot.val().users;
+                          users = (users ? users : []);
+                          users.push(NAME);
+                          var data = {
+                              name: snapshot.val().name,
+                              picture: snapshot.val().picture,
+                              price: snapshot.val().price,
+                              users: users
+                          };
+                          var updates = {};
+                          updates['/dish/dessert/' + key] = data;
+                          database.ref().update(updates);
+                      });
+                  });
+
+                  $('#minus-icon' + key).click(function () {
+                      var key = $(this).parent().parent().parent().find('#element_id').text();
+                      database.ref('/dish/dessert/' + key).once('value').then(function (snapshot) {
+                          var users = snapshot.val().users;
+                          if (users === undefined) return;
+                          var index = users.indexOf(NAME);
+                          users.splice(index, 1);
+                          var data = {
+                              name: snapshot.val().name,
+                              picture: snapshot.val().picture,
+                              price: snapshot.val().price,
+                              users: users
+                          };
+                          var updates = {};
+                          updates['/dish/dessert/' + key] = data;
+                          val = database.ref().update(updates);
+                      });
+                  });
+              });
+
+              database.ref('/dish/dessert/' + i).on('value', function (snapshot) {
+                  var users = snapshot.val().users;
+                  var n_orders = (users ? snapshot.val().users.length : 0);
+                  var key = snapshot.key;
+                  console.log(n_orders);
+                  $('#n-orders' + key).html(n_orders);
+              });
+          }
+      });
   </script>
 </html>

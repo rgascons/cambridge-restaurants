@@ -44,11 +44,9 @@
             <br>
         </div>
         <div align="center">
-        <form class="form-signin"  method="post" role="form" id="nameform">
-             <input type="text" name="domain" id="inputfield" class="form-control" placeholder="Your name" required autofocus>
-            <br />
-              <br /><br />
-              <div class="row" id="startButtonRow"><a href="starters.html"><button type="button" class="btn btn-primary btn-lg" id="startButton">I'm hungree</button></a></div>
+        <form class="form-signin" role="form" id="nameform" action="starters.html" method="GET" >
+             <input type="text" name="name" id="inputfield" class="form-control" placeholder="Your name" required autofocus>
+             <input type="submit" value="I'm hungree" class="btn btn-primary btn-lg" id="startButton"/>
          </form>
             </div>
 
@@ -73,6 +71,12 @@
   <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+  <script>
+    function startApp() {
+        window.NAME = $('#inputfield').text();
+        window.location.href = "starters.html";
+    }
+  </script>
   <script>
       // Initialize Firebase
       var config = {
